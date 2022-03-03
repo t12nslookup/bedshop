@@ -1,0 +1,14 @@
+%table
+  %thead
+    %tr
+      %th ID
+      %th Shop
+      %th Edit
+  %tbody
+    - @shops.each do |shop|
+      %tr
+        %td= link_to shop.shop_id, shop
+        %td= shop.shop
+        %td= link_to 'Edit', edit_shop_path(shop)
+= link_to 'New Shop', new_shop_path
+= link_to 'Mattresses', mattresses_path

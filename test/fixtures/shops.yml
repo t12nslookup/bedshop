@@ -1,0 +1,17 @@
+# == Schema Information
+#
+# Table name: shops
+#
+#  shop_id    :integer          not null, primary key
+#  shop       :text             not null, indexed
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+one:
+  primary_key: 
+  shop: MyText
+
+two:
+  primary_key: 
+  shop: MyText
