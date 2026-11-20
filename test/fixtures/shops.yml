@@ -2,16 +2,20 @@
 #
 # Table name: shops
 #
-#  shop_id    :integer          not null, primary key
 #  shop       :text             not null, indexed
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  shop_id    :integer          not null, primary key
+#
+# Indexes
+#
+#  index_shops_on_shop  (shop)
 #
 
 one:
-  primary_key: 
-  shop: MyText
+  shop_id: 1
+  shop: Restful Home
 
 two:
-  primary_key: 
-  shop: MyText
+  shop_id: 2
+  shop: Cloud Nine

@@ -1,0 +1,12 @@
+attributes:
+  - content
+  - primary_keys
+  - foreign_keys
+filename: erd
+filetype: mmd
+generator: mermaid
+mermaid_style: erdiagram
+only:
+  - Mattress
+  - Shop
+title: "Bedshop: shops and mattresses"

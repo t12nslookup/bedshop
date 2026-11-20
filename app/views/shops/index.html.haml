@@ -1,14 +1,37 @@
-%table
-  %thead
-    %tr
-      %th ID
-      %th Shop
-      %th Edit
-  %tbody
-    - @shops.each do |shop|
-      %tr
-        %td= link_to shop.shop_id, shop
-        %td= shop.shop
-        %td= link_to 'Edit', edit_shop_path(shop)
-= link_to 'New Shop', new_shop_path
-= link_to 'Mattresses', mattresses_path
+- content_for :title, 'Shops · Bedshop'
+
+.d-flex.flex-column.flex-md-row.justify-content-between.align-items-md-end.gap-3.mb-4
+  .page-heading
+    %p.text-uppercase.small.fw-semibold.text-primary.mb-2 The catalog
+    %h1.display-6.fw-bold.mb-2 Find your place to rest
+    %p.text-body-secondary.mb-0 A tiny directory of mattress shops, with each mattress linked to its home shop.
+  = link_to 'Add a shop', new_shop_path, class: 'btn btn-primary'
+
+.d-flex.align-items-center.justify-content-between.mb-3
+  %h2.h5.fw-semibold.mb-0 Shops
+  %span.badge.text-bg-light.border= pluralize(@shops.size, 'shop')
+
+- if @shops.any?
+  .table-responsive.bg-white.rounded-3.shadow-sm
+    %table.table.table-hover.mb-0
+      %thead.table-light
+        %tr
+          %th{ scope: 'col' } Shop
+          %th{ scope: 'col' } Mattresses
+          %th{ scope: 'col' } Actions
+      %tbody
+        - @shops.each do |shop|
+          %tr
+            %td
+              = link_to shop.shop, shop, class: 'fw-semibold text-decoration-none'
+              .small.text-body-secondary Shop ##{shop.shop_id}
+            %td= pluralize(shop.mattresses.size, 'mattress')
+            %td
+              .d-flex.flex-wrap.gap-2
+                = link_to 'Edit', edit_shop_path(shop), class: 'btn btn-sm btn-outline-secondary'
+                = button_to 'Delete', shop, method: :delete, class: 'btn btn-sm btn-outline-danger'
+- else
+  .empty-state.p-5.text-center
+    %h2.h5.fw-semibold No shops yet
+    %p.text-body-secondary Start the catalog by adding your first shop.
+    = link_to 'Add your first shop', new_shop_path, class: 'btn btn-primary'

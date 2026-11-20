@@ -2,12 +2,11 @@
 
 class MattressesController < ApplicationController
   before_action :set_mattress, only: %i[show edit update destroy]
-  before_action :set_shops, only: %i[new show edit update]
+  before_action :set_shops, only: %i[new create edit update]
 
   # GET /mattresses or /mattresses.json
   def index
-    @shops = Shop.includes(:mattresses).joins(:mattresses)
-    @mattresses = Mattress.includes(:shop)
+    @mattresses = Mattress.includes(:shop).order(:id)
   end
 
   # GET /mattresses/1 or /mattresses/1.json
@@ -16,7 +15,6 @@ class MattressesController < ApplicationController
   # GET /mattresses/new
   def new
     @mattress = Mattress.new
-    @shops = Shop.all
   end
 
   # GET /mattresses/1/edit
@@ -27,9 +25,9 @@ class MattressesController < ApplicationController
     @mattress = Mattress.new(mattress_params)
 
     if @mattress.save
-      redirect_to mattresses_path
+      redirect_to mattresses_path, notice: t('mattresses.created')
     else
-      render :new
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -37,11 +35,11 @@ class MattressesController < ApplicationController
   def update
     respond_to do |format|
       if @mattress.update(mattress_params)
-        format.html { redirect_to mattresses_path, notice: 'Mattress was successfully updated.' }
+        format.html { redirect_to mattresses_path, notice: t('mattresses.updated') }
         format.json { render :show, status: :ok, location: @mattress }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @mattress.errors, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_content }
+        format.json { render json: @mattress.errors, status: :unprocessable_content }
       end
     end
   end
@@ -51,7 +49,7 @@ class MattressesController < ApplicationController
     @mattress.destroy
 
     respond_to do |format|
-      format.html { redirect_to mattresses_path, notice: 'Mattress was successfully destroyed.' }
+      format.html { redirect_to mattresses_path, notice: t('mattresses.destroyed') }
       format.json { head :no_content }
     end
   end
@@ -60,15 +58,15 @@ class MattressesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_shops
-    @shops = Shop.all.order(:shop)
+    @shops = Shop.order(:shop)
   end
 
   def set_mattress
-    @mattress = Mattress.includes(:shop).find(params[:id])
+    @mattress = Mattress.includes(:shop).find(params.expect(:id))
   end
 
   # Only allow a list of trusted parameters through.
   def mattress_params
-    params.require(:mattress).permit(:shop_id)
+    params.expect(mattress: [:shop_id])
   end
 end

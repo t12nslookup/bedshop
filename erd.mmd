@@ -1,0 +1,11 @@
+erDiagram
+	direction TB
+	Mattress {
+		integer id PK
+		integer shop_id FK
+	}
+	Shop {
+		text shop
+		integer shop_id PK,FK
+	}
+	Shop ||--}o Mattress : ""
