@@ -1,7 +1,33 @@
+- content_for :title, "#{@shop.shop} · Bedshop"
 
-Id:
-= @shop.shop_id
-Shop:
-= @shop.shop
-Mattresses:
-= @shop.mattresses.count
+.d-flex.flex-column.flex-md-row.justify-content-between.align-items-md-start.gap-3.mb-4
+  .page-heading
+    %p.text-uppercase.small.fw-semibold.text-primary.mb-2 Shop ##{@shop.shop_id}
+    %h1.display-6.fw-bold.mb-2= @shop.shop
+    %p.text-body-secondary.mb-0 #{pluralize(@shop.mattresses.size, 'mattress')} in this shop.
+  .d-flex.flex-wrap.gap-2
+    = link_to 'Edit shop', edit_shop_path(@shop), class: 'btn btn-outline-secondary'
+    = link_to 'Add a mattress', new_mattress_path, class: 'btn btn-primary'
+
+.d-flex.align-items-center.justify-content-between.mb-3
+  %h2.h5.fw-semibold.mb-0 Mattresses
+
+- if @shop.mattresses.any?
+  .table-responsive.bg-white.rounded-3.shadow-sm
+    %table.table.table-hover.mb-0
+      %thead.table-light
+        %tr
+          %th{ scope: 'col' } Mattress
+          %th{ scope: 'col' } Actions
+      %tbody
+        - @shop.mattresses.each do |mattress|
+          %tr
+            %td= link_to "Mattress ##{mattress.id}", mattress, class: 'fw-semibold text-decoration-none'
+            %td= link_to 'Edit', edit_mattress_path(mattress), class: 'btn btn-sm btn-outline-secondary'
+- else
+  .empty-state.p-5.text-center
+    %h2.h5.fw-semibold No mattresses here yet
+    %p.text-body-secondary Add a mattress to make the shop feel at home.
+    = link_to 'Add a mattress', new_mattress_path, class: 'btn btn-primary'
+
+.mt-4= link_to '← Back to shops', shops_path, class: 'text-decoration-none'

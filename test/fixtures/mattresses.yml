@@ -3,9 +3,13 @@
 # Table name: mattresses
 #
 #  id         :integer          not null, primary key
-#  shop_id    :integer          not null, indexed
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  shop_id    :integer          not null, indexed
+#
+# Indexes
+#
+#  index_mattresses_on_shop_id  (shop_id)
 #
 # Foreign Keys
 #
@@ -13,7 +17,7 @@
 #
 
 one:
-  shop: one
+  shop_id: 1
 
 two:
-  shop: two
+  shop_id: 2

@@ -1,9 +1,16 @@
 # frozen_string_literal: true
 
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+shop_mattress_counts = {
+  'Restful Home' => 3,
+  'Cloud Nine' => 2,
+  'The Mattress Loft' => 1,
+  'Dreamland Beds' => 3,
+  'Sleepy Hollow' => 2
+}
+
+shop_mattress_counts.each do |name, mattress_count|
+  shop = Shop.find_or_create_by!(shop: name)
+  missing_count = mattress_count - shop.mattresses.count
+
+  missing_count.times { shop.mattresses.create! } if missing_count.positive?
+end

@@ -1,15 +1,13 @@
-%h1 New Shop
-= form_with(model: mattress, url: mattress) do |form|
+= form_with model: mattress, class: 'card card-body shadow-sm gap-3' do |form|
   - if mattress.errors.any?
-    %div{ style: 'color: red' }
-      %h2
+    .alert.alert-danger{ role: 'alert' }
+      %h2.h6
         = pluralize(mattress.errors.count, 'error')
         prohibited this mattress from being saved:
       %ul
         - mattress.errors.each do |error|
           %li= error.full_message
-  %div
-    = form.label :shop_id, style: 'display: block'
-    = form.collection_select :shop_id, shops, :shop_id, :shop
-  %div
-    = form.submit
+  .mb-1
+    = form.label :shop_id, 'Shop', class: 'form-label'
+    = form.collection_select :shop_id, shops, :shop_id, :shop, { include_blank: 'Choose a shop' }, { class: 'form-select', required: true }
+  = form.submit class: 'btn btn-primary align-self-start'

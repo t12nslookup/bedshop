@@ -1,0 +1,17 @@
+- content_for :title, "Mattress ##{@mattress.id} · Bedshop"
+
+.page-heading.mb-4
+  %p.text-uppercase.small.fw-semibold.text-primary.mb-2 Mattress detail
+  %h1.display-6.fw-bold.mb-2 Mattress ##{@mattress.id}
+  %p.text-body-secondary.mb-0 This mattress belongs to #{link_to @mattress.shop.shop, @mattress.shop, class: 'text-decoration-none'}.
+
+.card.card-body.shadow-sm
+  %dl.row.mb-0
+    %dt.col-sm-3.text-body-secondary Mattress ID
+    %dd.col-sm-9= @mattress.id
+    %dt.col-sm-3.text-body-secondary Shop
+    %dd.col-sm-9= link_to @mattress.shop.shop, @mattress.shop, class: 'text-decoration-none'
+
+.d-flex.flex-wrap.gap-2.mt-4
+  = link_to 'Edit mattress', edit_mattress_path(@mattress), class: 'btn btn-primary'
+  = link_to 'All mattresses', mattresses_path, class: 'btn btn-outline-secondary'

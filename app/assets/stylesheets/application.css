@@ -13,3 +13,22 @@
  *= require_tree .
  *= require_self
  */
+
+body {
+  color: #23313d;
+}
+
+.page-heading {
+  max-width: 46rem;
+}
+
+.table > :not(caption) > * > * {
+  padding: 1rem;
+  vertical-align: middle;
+}
+
+.empty-state {
+  border: 1px dashed #cbd5df;
+  border-radius: 0.75rem;
+  background: #fff;
+}

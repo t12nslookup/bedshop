@@ -1,14 +1,13 @@
-= form_with(model: shop, url: shop) do |form|
+= form_with model: shop, class: 'card card-body shadow-sm gap-3' do |form|
   - if shop.errors.any?
-    %div{ style: 'color: red' }
-      %h2
+    .alert.alert-danger{ role: 'alert' }
+      %h2.h6
         = pluralize(shop.errors.count, 'error')
         prohibited this shop from being saved:
       %ul
         - shop.errors.each do |error|
           %li= error.full_message
-  %div
-    = form.label 'Shop Name', style: 'display: block'
-    = form.text_field :shop
-  %div
-    = form.submit
+  .mb-1
+    = form.label :shop, 'Shop name', class: 'form-label'
+    = form.text_field :shop, class: 'form-control', placeholder: 'e.g. Dream Sleep', required: true, autofocus: true
+  = form.submit class: 'btn btn-primary align-self-start'
