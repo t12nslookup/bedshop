@@ -50,3 +50,7 @@ The UI loads Bootstrap's stylesheet from jsDelivr. This app has no client-side J
 - Deleting a shop also deletes its mattresses.
 
 Run `bin/rails routes` to explore the generated resource routes, or use `bin/rails console` (or `irb`) to inspect the models.
+
+## License
+
+This project is released under the [Unlicense](./LICENSE), with no attribution requirement.
